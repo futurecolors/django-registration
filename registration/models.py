@@ -9,6 +9,7 @@ from django.db import models
 from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from registration.mail import send_templated_mail
 
 try:
     from django.utils.timezone import now as datetime_now
@@ -177,10 +178,11 @@ class RegistrationProfile(models.Model):
     activation_key = models.CharField(_('activation key'), max_length=40)
     
     objects = RegistrationManager()
-    
+
     class Meta:
         verbose_name = _('registration profile')
         verbose_name_plural = _('registration profiles')
+
     
     def __unicode__(self):
         return u"Registration information for %s" % self.user
@@ -217,17 +219,11 @@ class RegistrationProfile(models.Model):
         Send an activation email to the user associated with this
         ``RegistrationProfile``.
         
-        The activation email will make use of two templates:
+        The activation email will make use email template:
 
-        ``registration/activation_email_subject.txt``
-            This template will be used for the subject line of the
-            email. Because it is used as the subject line of an email,
-            this template's output **must** be only a single line of
-            text; output longer than one line will be forcibly joined
-            into only a single line.
-
-        ``registration/activation_email.txt``
-            This template will be used for the body of the email.
+        ``registration/activation_letter.html``
+            This template will be used for the subject and body of the
+            email.
 
         These templates will each receive the following context
         variables:
@@ -253,13 +249,8 @@ class RegistrationProfile(models.Model):
         ctx_dict = {'activation_key': self.activation_key,
                     'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
                     'site': site}
-        subject = render_to_string('registration/activation_email_subject.txt',
-                                   ctx_dict)
-        # Email subject *must not* contain newlines
-        subject = ''.join(subject.splitlines())
-        
-        message = render_to_string('registration/activation_email.txt',
-                                   ctx_dict)
-        
-        self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
-    
+
+        send_templated_mail(email_template='registration/activation_letter.html',
+                            from_email=settings.DEFAULT_FROM_EMAIL,
+                            recipient_list=[self.user.email],
+                            context=ctx_dict)

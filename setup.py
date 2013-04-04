@@ -11,6 +11,9 @@ setup(
     download_url='http://www.bitbucket.org/ubernostrum/django-registration/get/v0.8.gz',
     package_dir={'registration': 'registration'},
     packages=find_packages(exclude='test_app'),
+    install_requires=[
+        'django-templated-email==0.4.7',
+    ],
     tests_require=(
         'django-setuptest',
     ),
