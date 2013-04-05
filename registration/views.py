@@ -129,6 +129,10 @@ class ActivationView(TemplateView):
                 return redirect(to, *args, **kwargs)
             except ValueError:
                 return redirect(success_url)
+        else:
+            return self.invalid_code(request, *args, **kwargs)
+
+    def invalid_code(self, request, *args, **kwargs):
         return super(ActivationView, self).get(request, *args, **kwargs)
 
     def activate(self, request, *args, **kwargs):
