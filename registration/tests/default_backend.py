@@ -7,10 +7,7 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from registration import signals
-from registration.admin import RegistrationAdmin
 from registration.forms import RegistrationForm
-from registration.backends.default.views import RegistrationView
 from registration.models import RegistrationProfile
 
 
@@ -34,7 +31,7 @@ class DefaultBackendViewTests(TestCase):
         """
         self.old_activation = getattr(settings, 'ACCOUNT_ACTIVATION_DAYS', None)
         if self.old_activation is None:
-            settings.ACCOUNT_ACTIVATION_DAYS = 7 # pragma: no cover
+            settings.ACCOUNT_ACTIVATION_DAYS = 7   # pragma: no cover
 
     def tearDown(self):
         """
@@ -43,7 +40,7 @@ class DefaultBackendViewTests(TestCase):
 
         """
         if self.old_activation is None:
-            settings.ACCOUNT_ACTIVATION_DAYS = self.old_activation # pragma: no cover
+            settings.ACCOUNT_ACTIVATION_DAYS = self.old_activation   # pragma: no cover
 
     def test_allow(self):
         """

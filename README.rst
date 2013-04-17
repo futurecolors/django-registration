@@ -16,3 +16,5 @@ Rationale
 
 .. _django-registration: https://bitbucket.org/ubernostrum/django-registration/
 .. _default templates: https://github.com/yourcelf/django-registration-defaults
+
+Docs of original app, apply to this fork: https://django-registration.readthedocs.org/en/latest/
