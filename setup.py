@@ -13,9 +13,11 @@ setup(
     packages=find_packages(exclude='test_app'),
     install_requires=[
         'django-templated-email==0.4.7',
+        'django-braces',
     ],
     tests_require=(
         'django-setuptest',
+        'argparse'
     ),
     test_suite='setuptest.setuptest.SetupTestSuite',
     include_package_data=True,

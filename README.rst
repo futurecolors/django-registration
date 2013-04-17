@@ -1,5 +1,7 @@
 Fork of a popular `django-registration`_ library. Handles a lot of boilerplate code for registration.
 
+Tested with Django 1.4.5 only
+
 .. image:: https://travis-ci.org/futurecolors/django-registration.png?branch=master
     :target: https://travis-ci.org/futurecolors/django-registration
 
@@ -11,7 +13,7 @@ Rationale
 
 * added `default templates`_
 * added `django-templated-email`_ support
-* CBV for login and logout
+* CBV for login
 
 
 .. _django-registration: https://bitbucket.org/ubernostrum/django-registration/
