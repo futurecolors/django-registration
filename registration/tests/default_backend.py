@@ -1,6 +1,7 @@
 import datetime
 
 from django.conf import settings
+from django.contrib.auth import SESSION_KEY
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
@@ -194,3 +195,22 @@ class DefaultBackendViewTests(TestCase):
         self.assertTemplateUsed(resp, 'registration/activate.html')
         self.assertEqual(profile.activation_key,
                          resp.context['params']['activation_key'])
+
+
+class LoginViewTest(TestCase):
+
+    def test_form_valid(self):
+        User.objects.create_user(username='bob@example.com', password='123456')
+        response = self.client.post('/login/', data={'username': 'bob@example.com', 'password': '123456'}, follow=False)
+        self.assertTrue(SESSION_KEY in self.client.session)
+        self.assertRedirects(response, settings.LOGIN_REDIRECT_URL)
+
+    def test_form_invalid(self):
+        response = self.client.post('/login/', data={})
+        self.assertFormError(response, 'form', 'username', [u'This field is required.'])
+        self.assertFormError(response, 'form', 'password', [u'This field is required.'])
+
+    def test_get(self):
+        response = self.client.get('/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/login.html')
