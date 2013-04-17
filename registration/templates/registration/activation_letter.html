@@ -1,3 +1,4 @@
+{% load url from future %}
 {% block subject %}Account registration for {{ site.name }}{% endblock %}
 
 {% block html %}
@@ -8,7 +9,7 @@
     To activate this account, please click the following link within the next
     {{ expiration_days }} days:
 
-    http://{{site.domain}}{% url registration_activate activation_key %}
+    http://{{site.domain}}{% url 'registration_activate' activation_key %}
 
     Sincerely,
     {{ site.name }} Management
