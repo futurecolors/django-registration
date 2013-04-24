@@ -7,12 +7,13 @@ DATABASES = {
 }
 
 INSTALLED_APPS = (
+    'south',
     'django.contrib.auth',
     'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.contenttypes',
     'registration',
-    'test_app'
+    'test_app',
 )
 
 SECRET_KEY = '_'
