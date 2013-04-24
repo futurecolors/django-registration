@@ -29,7 +29,7 @@ setup(
         'django-templated-email==0.4.7',
         'django-braces==1.0.0',
     ],
-    tests_require=['pytest-django'],
+    tests_require=['pytest-django', 'south'],
     cmdclass={'test': PyTest},
     include_package_data=True,
     classifiers=[
