@@ -18,7 +18,7 @@ class PyTest(TestCommand):
 
 setup(
     name='django-registration-fc',
-    version='1.0',
+    version='1.0.1',
     description='Fork of an extensible user-registration application for Django',
     author='Ilya Baryshev',
     author_email='baryshev@futurecolors.ru',
